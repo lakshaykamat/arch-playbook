@@ -8,233 +8,235 @@
   </head>
   <body>
     <main class="content">
-    <h1 id="architectural-patterns-guide">Architectural Patterns Guide</h1>
-    <p>
-      A reference guide for developers who want to understand, choose, and
-      evolve their architecture — whether they&#39;re starting fresh or dealing
-      with a codebase that&#39;s outgrown its original structure.
-    </p>
-    <hr />
-    <h2 id="backend-architectural-patterns">Backend Architectural Patterns</h2>
-    <h3 id="system-architectures">System Architectures</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Architecture</th>
-          <th>Description</th>
-          <th>When to Use</th>
-          <th>Pros</th>
-          <th>Cons</th>
-          <th>Frameworks (Node.js / Python)</th>
-          <th>Use Cases</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Monolith</td>
-          <td>Single deployable app</td>
-          <td>MVPs, small apps</td>
-          <td>Simple to build and deploy</td>
-          <td>Hard to scale or isolate modules</td>
-          <td>Express, Flask, FastAPI, Django</td>
-          <td>Dashboards, admin panels</td>
-        </tr>
-        <tr>
-          <td>Modular Monolith</td>
-          <td>Organized monolith with domains/modules</td>
-          <td>Growing apps</td>
-          <td>Scalable within single codebase</td>
-          <td>Shared runtime, still coupled</td>
-          <td>NestJS, Django-Ninja, FastAPI (modular)</td>
-          <td>Internal tools, feature-rich SaaS</td>
-        </tr>
-        <tr>
-          <td>Microservices</td>
-          <td>Independently deployed services</td>
-          <td>Enterprise apps</td>
-          <td>Independently scalable, team autonomy</td>
-          <td>Complex infra, inter-service comms</td>
-          <td>Express, Fastify / FastAPI, Flask, Django REST</td>
-          <td>E-commerce, marketplaces</td>
-        </tr>
-        <tr>
-          <td>Serverless</td>
-          <td>Functions triggered by events (Lambda, etc.)</td>
-          <td>Low-latency, event-based needs</td>
-          <td>Pay-per-use, scales automatically</td>
-          <td>Cold starts, limited execution time</td>
-          <td>Node.js (AWS Lambda, Vercel) / Python (Zappa, Chalice)</td>
-          <td>Auth APIs, webhooks</td>
-        </tr>
-        <tr>
-          <td>Event-Driven</td>
-          <td>Services interact via pub/sub messaging</td>
-          <td>Real-time and async processing</td>
-          <td>Loose coupling, scalable</td>
-          <td>Debugging and state tracking is harder</td>
-          <td>Node.js + NATS/RabbitMQ / Python + Celery/Kafka</td>
-          <td>Notifications, analytics</td>
-        </tr>
-        <tr>
-          <td>CQRS + Event Sourcing</td>
-          <td>Split read/write + event stream persistence</td>
-          <td>Audit logs, financial systems</td>
-          <td>Query/read optimization, replayable state</td>
-          <td>High complexity, requires infra setup</td>
-          <td>NestJS (CQRS) / FastAPI + Kafka, EventStore</td>
-          <td>Ledgers, bookings</td>
-        </tr>
-        <tr>
-          <td>Backend For Frontend</td>
-          <td>One backend per frontend (web/mobile)</td>
-          <td>Apps with tailored UI needs</td>
-          <td>Custom responses, less over-fetching</td>
-          <td>Code duplication between backends</td>
-          <td>Express, Fastify / FastAPI, Flask</td>
-          <td>Separate web and mobile apps</td>
-        </tr>
-        <tr>
-          <td>GraphQL-Centric</td>
-          <td>Unified GraphQL layer exposing services</td>
-          <td>Dashboards, complex UIs</td>
-          <td>Flexible client queries</td>
-          <td>Schema design, query complexity</td>
-          <td>Apollo Server, Mercurius / Strawberry, Ariadne</td>
-          <td>Multi-client APIs</td>
-        </tr>
-        <tr>
-          <td>JAMstack Backend</td>
-          <td>Static frontend + backend APIs</td>
-          <td>Lightweight marketing sites</td>
-          <td>Fast, scalable hosting</td>
-          <td>All logic must go through APIs</td>
-          <td>Next.js + API routes / Flask + Netlify Functions</td>
-          <td>Landing pages, calculators</td>
-        </tr>
-        <tr>
-          <td>Headless CMS-Based</td>
-          <td>CMS with extendable logic via custom APIs</td>
-          <td>Content-heavy platforms</td>
-          <td>Easy content management</td>
-          <td>Flexibility limited by CMS</td>
-          <td>Strapi (Node), Keystone / Wagtail, Netlify CMS</td>
-          <td>Blogs, eCommerce</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
-    <h3 id="codebase-architectures">Codebase Architectures</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Architecture</th>
-          <th>Description</th>
-          <th>When to Use</th>
-          <th>Pros</th>
-          <th>Cons</th>
-          <th>Node.js / Python Compatibility</th>
-          <th>Used In</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>MVC</td>
-          <td>Model, View, Controller layers</td>
-          <td>Small to mid apps</td>
-          <td>Easy to grasp</td>
-          <td>Not great at scale</td>
-          <td>Express, Sails / Flask, Django</td>
-          <td>Monoliths, CRUD apps</td>
-        </tr>
-        <tr>
-          <td>Layered</td>
-          <td>Separate controller, service, repo layers</td>
-          <td>General-purpose apps</td>
-          <td>Logical separation</td>
-          <td>Layers may become shallow</td>
-          <td>Express, NestJS / FastAPI, Django</td>
-          <td>API backends</td>
-        </tr>
-        <tr>
-          <td>Clean Architecture</td>
-          <td>Entities → UseCases → Interfaces → Framework</td>
-          <td>Testable, scalable apps</td>
-          <td>Highly decoupled</td>
-          <td>Verbose, complex setup</td>
-          <td>NestJS / FastAPI (manual), CleanPy</td>
-          <td>Large SaaS, microservices</td>
-        </tr>
-        <tr>
-          <td>Hexagonal Architecture</td>
-          <td>Core logic via ports/adapters</td>
-          <td>Integration-heavy apps</td>
-          <td>Pluggable, isolated logic</td>
-          <td>Setup complexity</td>
-          <td>Express / Python Hexagonal Boilerplates</td>
-          <td>Plugin systems, external API integrations</td>
-        </tr>
-        <tr>
-          <td>Onion Architecture</td>
-          <td>Centered on domain, outer layers add infra</td>
-          <td>Domain-centric logic</td>
-          <td>Controlled dependencies</td>
-          <td>Verbose for small projects</td>
-          <td>NestJS / FastAPI, Django (manual)</td>
-          <td>Enterprise apps</td>
-        </tr>
-        <tr>
-          <td>CQRS</td>
-          <td>Separate command and query logic</td>
-          <td>Write-heavy, real-time flows</td>
-          <td>Efficient and scalable</td>
-          <td>Needs coordination logic</td>
-          <td>NestJS CQRS / Python (custom FastAPI + command bus)</td>
-          <td>Financial or booking systems</td>
-        </tr>
-        <tr>
-          <td>DDD (Domain Driven)</td>
-          <td>Structure based on domain logic</td>
-          <td>Complex business logic</td>
-          <td>Matches business language</td>
-          <td>Needs domain expertise</td>
-          <td>NestJS / Python (Dependency Injector, DDD libs)</td>
-          <td>Multi-entity SaaS</td>
-        </tr>
-        <tr>
-          <td>Event Sourcing</td>
-          <td>Store state as events</td>
-          <td>Audit and history-focused apps</td>
-          <td>Full traceability</td>
-          <td>Harder consistency management</td>
-          <td>Kafka/EventStore with Node or Python</td>
-          <td>CRMs, financial systems</td>
-        </tr>
-        <tr>
-          <td>Plugin-Based</td>
-          <td>Core + dynamic plugins for features</td>
-          <td>Dev tools, extensible backends</td>
-          <td>Easy to add features</td>
-          <td>Plugin lifecycle management needed</td>
-          <td>Strapi / Django CMS, Flask plugins</td>
-          <td>CMS, IDEs</td>
-        </tr>
-        <tr>
-          <td>Functional Core / Imperative Shell</td>
-          <td>Logic in pure functions, I/O handled separately</td>
-          <td>Test-driven, FP-influenced apps</td>
-          <td>High testability</td>
-          <td>Harder for imperative logic</td>
-          <td>Any Node.js or Python app</td>
-          <td>Functional-style backends</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
-    <h3 id="codebase-architectures-with-real-folder-structures">
-      Codebase Architectures with Real Folder Structures
-    </h3>
-    <h4 id="1-mvc-model-view-controller-">1. MVC (Model-View-Controller)</h4>
-    <pre><code>/<span class="hljs-keyword">app</span>
+      <h1 id="architectural-patterns-guide">Architectural Patterns Guide</h1>
+      <p>
+        A reference guide for developers who want to understand, choose, and
+        evolve their architecture — whether they&#39;re starting fresh or
+        dealing with a codebase that&#39;s outgrown its original structure.
+      </p>
+      <hr />
+      <h2 id="backend-architectural-patterns">
+        Backend Architectural Patterns
+      </h2>
+      <h3 id="system-architectures">System Architectures</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture</th>
+            <th>Description</th>
+            <th>When to Use</th>
+            <th>Pros</th>
+            <th>Cons</th>
+            <th>Frameworks (Node.js / Python)</th>
+            <th>Use Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monolith</td>
+            <td>Single deployable app</td>
+            <td>MVPs, small apps</td>
+            <td>Simple to build and deploy</td>
+            <td>Hard to scale or isolate modules</td>
+            <td>Express, Flask, FastAPI, Django</td>
+            <td>Dashboards, admin panels</td>
+          </tr>
+          <tr>
+            <td>Modular Monolith</td>
+            <td>Organized monolith with domains/modules</td>
+            <td>Growing apps</td>
+            <td>Scalable within single codebase</td>
+            <td>Shared runtime, still coupled</td>
+            <td>NestJS, Django-Ninja, FastAPI (modular)</td>
+            <td>Internal tools, feature-rich SaaS</td>
+          </tr>
+          <tr>
+            <td>Microservices</td>
+            <td>Independently deployed services</td>
+            <td>Enterprise apps</td>
+            <td>Independently scalable, team autonomy</td>
+            <td>Complex infra, inter-service comms</td>
+            <td>Express, Fastify / FastAPI, Flask, Django REST</td>
+            <td>E-commerce, marketplaces</td>
+          </tr>
+          <tr>
+            <td>Serverless</td>
+            <td>Functions triggered by events (Lambda, etc.)</td>
+            <td>Low-latency, event-based needs</td>
+            <td>Pay-per-use, scales automatically</td>
+            <td>Cold starts, limited execution time</td>
+            <td>Node.js (AWS Lambda, Vercel) / Python (Zappa, Chalice)</td>
+            <td>Auth APIs, webhooks</td>
+          </tr>
+          <tr>
+            <td>Event-Driven</td>
+            <td>Services interact via pub/sub messaging</td>
+            <td>Real-time and async processing</td>
+            <td>Loose coupling, scalable</td>
+            <td>Debugging and state tracking is harder</td>
+            <td>Node.js + NATS/RabbitMQ / Python + Celery/Kafka</td>
+            <td>Notifications, analytics</td>
+          </tr>
+          <tr>
+            <td>CQRS + Event Sourcing</td>
+            <td>Split read/write + event stream persistence</td>
+            <td>Audit logs, financial systems</td>
+            <td>Query/read optimization, replayable state</td>
+            <td>High complexity, requires infra setup</td>
+            <td>NestJS (CQRS) / FastAPI + Kafka, EventStore</td>
+            <td>Ledgers, bookings</td>
+          </tr>
+          <tr>
+            <td>Backend For Frontend</td>
+            <td>One backend per frontend (web/mobile)</td>
+            <td>Apps with tailored UI needs</td>
+            <td>Custom responses, less over-fetching</td>
+            <td>Code duplication between backends</td>
+            <td>Express, Fastify / FastAPI, Flask</td>
+            <td>Separate web and mobile apps</td>
+          </tr>
+          <tr>
+            <td>GraphQL-Centric</td>
+            <td>Unified GraphQL layer exposing services</td>
+            <td>Dashboards, complex UIs</td>
+            <td>Flexible client queries</td>
+            <td>Schema design, query complexity</td>
+            <td>Apollo Server, Mercurius / Strawberry, Ariadne</td>
+            <td>Multi-client APIs</td>
+          </tr>
+          <tr>
+            <td>JAMstack Backend</td>
+            <td>Static frontend + backend APIs</td>
+            <td>Lightweight marketing sites</td>
+            <td>Fast, scalable hosting</td>
+            <td>All logic must go through APIs</td>
+            <td>Next.js + API routes / Flask + Netlify Functions</td>
+            <td>Landing pages, calculators</td>
+          </tr>
+          <tr>
+            <td>Headless CMS-Based</td>
+            <td>CMS with extendable logic via custom APIs</td>
+            <td>Content-heavy platforms</td>
+            <td>Easy content management</td>
+            <td>Flexibility limited by CMS</td>
+            <td>Strapi (Node), Keystone / Wagtail, Netlify CMS</td>
+            <td>Blogs, eCommerce</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3 id="codebase-architectures">Codebase Architectures</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture</th>
+            <th>Description</th>
+            <th>When to Use</th>
+            <th>Pros</th>
+            <th>Cons</th>
+            <th>Node.js / Python Compatibility</th>
+            <th>Used In</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MVC</td>
+            <td>Model, View, Controller layers</td>
+            <td>Small to mid apps</td>
+            <td>Easy to grasp</td>
+            <td>Not great at scale</td>
+            <td>Express, Sails / Flask, Django</td>
+            <td>Monoliths, CRUD apps</td>
+          </tr>
+          <tr>
+            <td>Layered</td>
+            <td>Separate controller, service, repo layers</td>
+            <td>General-purpose apps</td>
+            <td>Logical separation</td>
+            <td>Layers may become shallow</td>
+            <td>Express, NestJS / FastAPI, Django</td>
+            <td>API backends</td>
+          </tr>
+          <tr>
+            <td>Clean Architecture</td>
+            <td>Entities → UseCases → Interfaces → Framework</td>
+            <td>Testable, scalable apps</td>
+            <td>Highly decoupled</td>
+            <td>Verbose, complex setup</td>
+            <td>NestJS / FastAPI (manual), CleanPy</td>
+            <td>Large SaaS, microservices</td>
+          </tr>
+          <tr>
+            <td>Hexagonal Architecture</td>
+            <td>Core logic via ports/adapters</td>
+            <td>Integration-heavy apps</td>
+            <td>Pluggable, isolated logic</td>
+            <td>Setup complexity</td>
+            <td>Express / Python Hexagonal Boilerplates</td>
+            <td>Plugin systems, external API integrations</td>
+          </tr>
+          <tr>
+            <td>Onion Architecture</td>
+            <td>Centered on domain, outer layers add infra</td>
+            <td>Domain-centric logic</td>
+            <td>Controlled dependencies</td>
+            <td>Verbose for small projects</td>
+            <td>NestJS / FastAPI, Django (manual)</td>
+            <td>Enterprise apps</td>
+          </tr>
+          <tr>
+            <td>CQRS</td>
+            <td>Separate command and query logic</td>
+            <td>Write-heavy, real-time flows</td>
+            <td>Efficient and scalable</td>
+            <td>Needs coordination logic</td>
+            <td>NestJS CQRS / Python (custom FastAPI + command bus)</td>
+            <td>Financial or booking systems</td>
+          </tr>
+          <tr>
+            <td>DDD (Domain Driven)</td>
+            <td>Structure based on domain logic</td>
+            <td>Complex business logic</td>
+            <td>Matches business language</td>
+            <td>Needs domain expertise</td>
+            <td>NestJS / Python (Dependency Injector, DDD libs)</td>
+            <td>Multi-entity SaaS</td>
+          </tr>
+          <tr>
+            <td>Event Sourcing</td>
+            <td>Store state as events</td>
+            <td>Audit and history-focused apps</td>
+            <td>Full traceability</td>
+            <td>Harder consistency management</td>
+            <td>Kafka/EventStore with Node or Python</td>
+            <td>CRMs, financial systems</td>
+          </tr>
+          <tr>
+            <td>Plugin-Based</td>
+            <td>Core + dynamic plugins for features</td>
+            <td>Dev tools, extensible backends</td>
+            <td>Easy to add features</td>
+            <td>Plugin lifecycle management needed</td>
+            <td>Strapi / Django CMS, Flask plugins</td>
+            <td>CMS, IDEs</td>
+          </tr>
+          <tr>
+            <td>Functional Core / Imperative Shell</td>
+            <td>Logic in pure functions, I/O handled separately</td>
+            <td>Test-driven, FP-influenced apps</td>
+            <td>High testability</td>
+            <td>Harder for imperative logic</td>
+            <td>Any Node.js or Python app</td>
+            <td>Functional-style backends</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3 id="codebase-architectures-with-real-folder-structures">
+        Codebase Architectures with Real Folder Structures
+      </h3>
+      <h4 id="1-mvc-model-view-controller-">1. MVC (Model-View-Controller)</h4>
+      <pre><code>/<span class="hljs-keyword">app</span>
 ├── controllers/
 │   └── user_controller.*
 ├── models/
@@ -245,9 +247,9 @@
 │   └── user_routes.*
 └── <span class="hljs-keyword">app</span>.*
 </code></pre>
-    <hr />
-    <h4 id="2-layered-architecture">2. Layered Architecture</h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="2-layered-architecture">2. Layered Architecture</h4>
+      <pre><code>/app
 ├── controllers/
 │   └── user_controller.*
 ├── services/
@@ -258,9 +260,9 @@
 │   └── user_model.*
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="3-clean-architecture">3. Clean Architecture</h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="3-clean-architecture">3. Clean Architecture</h4>
+      <pre><code>/app
 ├── domain/
 │   ├── entities/
 │   └── <span class="hljs-keyword">value</span><span class="hljs-number">_</span>objects/
@@ -274,11 +276,11 @@
 │   └── external<span class="hljs-number">_</span>services/
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="4-hexagonal-architecture-ports-and-adapters-">
-      4. Hexagonal Architecture (Ports and Adapters)
-    </h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="4-hexagonal-architecture-ports-and-adapters-">
+        4. Hexagonal Architecture (Ports and Adapters)
+      </h4>
+      <pre><code>/app
 ├── core/
 │   └── domain_logic.*
 ├── ports/
@@ -290,9 +292,9 @@
 │   └── <span class="hljs-keyword">http</span>/
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="5-onion-architecture">5. Onion Architecture</h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="5-onion-architecture">5. Onion Architecture</h4>
+      <pre><code>/app
 ├── domain/
 │   └── entities/
 ├── <span class="hljs-built_in">application</span>/
@@ -304,9 +306,9 @@
 │   └── controllers/
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="6-cqrs-event-sourcing">6. CQRS + Event Sourcing</h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="6-cqrs-event-sourcing">6. CQRS + Event Sourcing</h4>
+      <pre><code>/app
 ├── commands/
 │   └── handlers/
 ├── queries/
@@ -319,9 +321,9 @@
 │   └── event_store/
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="7-ddd-domain-driven-design-">7. DDD (Domain Driven Design)</h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="7-ddd-domain-driven-design-">7. DDD (Domain Driven Design)</h4>
+      <pre><code>/app
 ├── users/
 │   ├── domain/
 │   ├── <span class="hljs-built_in">application</span>/
@@ -333,9 +335,9 @@
 │   └── interfaces/
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="8-plugin-based-architecture">8. Plugin-Based Architecture</h4>
-    <pre><code>/<span class="hljs-keyword">app</span>
+      <hr />
+      <h4 id="8-plugin-based-architecture">8. Plugin-Based Architecture</h4>
+      <pre><code>/<span class="hljs-keyword">app</span>
 ├── core/
 │   └── engine.*
 ├── plugins/
@@ -346,245 +348,249 @@
 │   └── api/
 └── main.*
 </code></pre>
-    <hr />
-    <h4 id="9-functional-core-imperative-shell">
-      9. Functional Core / Imperative Shell
-    </h4>
-    <pre><code>/<span class="hljs-keyword">app</span>
+      <hr />
+      <h4 id="9-functional-core-imperative-shell">
+        9. Functional Core / Imperative Shell
+      </h4>
+      <pre><code>/<span class="hljs-keyword">app</span>
 ├── core/
 │   └── pure_logic/
 ├── <span class="hljs-keyword">shell</span>/
 │   └── http_handlers/
 └── main.*
 </code></pre>
-    <hr />
-    <h2 id="frontend-architectural-patterns">
-      Frontend Architectural Patterns
-    </h2>
-    <h3 id="system-architectures">System Architectures</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Architecture</th>
-          <th>Description</th>
-          <th>When to Use</th>
-          <th>Pros</th>
-          <th>Cons</th>
-          <th>Frameworks / Tools</th>
-          <th>Use Cases</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>SPA (Single Page App)</td>
-          <td>Full app loaded once, routes handled client-side</td>
-          <td>Rich interactive apps</td>
-          <td>Fast navigation, smooth UX</td>
-          <td>Poor SEO, heavy initial load</td>
-          <td>React, Vue, Angular, Svelte</td>
-          <td>Dashboards, admin panels, social feeds</td>
-        </tr>
-        <tr>
-          <td>MPA (Multi Page App)</td>
-          <td>Server renders a new HTML page per route</td>
-          <td>Content-heavy, SEO-critical sites</td>
-          <td>Great SEO, simpler mental model</td>
-          <td>Full page reload on each navigation</td>
-          <td>Next.js (pages), Nuxt, Astro</td>
-          <td>Blogs, marketing sites, news portals</td>
-        </tr>
-        <tr>
-          <td>SSR (Server-Side Rendering)</td>
-          <td>HTML rendered on server per request</td>
-          <td>Dynamic, SEO-sensitive apps</td>
-          <td>Fast first paint, SEO-friendly</td>
-          <td>Higher server load, more infra</td>
-          <td>Next.js, Nuxt, SvelteKit, Remix</td>
-          <td>E-commerce, news, product pages</td>
-        </tr>
-        <tr>
-          <td>SSG (Static Site Generation)</td>
-          <td>HTML pre-built at build time</td>
-          <td>Static or infrequently updated content</td>
-          <td>Blazing fast, CDN-cacheable</td>
-          <td>Not suited for highly dynamic data</td>
-          <td>Next.js, Astro, Gatsby, Eleventy</td>
-          <td>Docs, landing pages, portfolios</td>
-        </tr>
-        <tr>
-          <td>ISR (Incremental Static Regeneration)</td>
-          <td>SSG with background page regeneration</td>
-          <td>Mostly static with periodic updates</td>
-          <td>Combines SSG speed with fresh data</td>
-          <td>Complexity in cache invalidation</td>
-          <td>Next.js, Nuxt</td>
-          <td>Product listings, news with TTL</td>
-        </tr>
-        <tr>
-          <td>JAMstack</td>
-          <td>Static frontend + decoupled APIs + CDN delivery</td>
-          <td>Scalable, low-maintenance sites</td>
-          <td>Fast, secure, low hosting cost</td>
-          <td>Dynamic features need API workarounds</td>
-          <td>Gatsby, Astro, Eleventy + Netlify/Vercel</td>
-          <td>Marketing sites, documentation</td>
-        </tr>
-        <tr>
-          <td>Micro Frontends</td>
-          <td>Frontend split into independently deployable UI apps</td>
-          <td>Large teams, independent deployments</td>
-          <td>Team autonomy, independent deploys</td>
-          <td>Integration complexity, style inconsistency</td>
-          <td>Module Federation (Webpack), single-spa, Nx</td>
-          <td>Enterprise portals, large e-commerce</td>
-        </tr>
-        <tr>
-          <td>Islands Architecture</td>
-          <td>Static HTML with isolated interactive islands</td>
-          <td>Mostly static content with selective interactivity</td>
-          <td>Minimal JS shipped to client</td>
-          <td>Less suitable for highly interactive UIs</td>
-          <td>Astro, Marko, Fresh (Deno)</td>
-          <td>Blogs with interactive widgets, docs</td>
-        </tr>
-        <tr>
-          <td>Edge Rendering</td>
-          <td>HTML rendered at CDN edge nodes near the user</td>
-          <td>Low-latency, global audiences</td>
-          <td>Ultra-fast TTFB, geo-aware logic</td>
-          <td>Limited compute at edge, cold starts</td>
-          <td>Next.js (Edge Runtime), Remix, Cloudflare Workers</td>
-          <td>Personalized landing pages, A/B testing</td>
-        </tr>
-        <tr>
-          <td>PWA (Progressive Web App)</td>
-          <td>Web app with offline support and native-like features</td>
-          <td>Mobile-first, offline-capable apps</td>
-          <td>Works offline, installable</td>
-          <td>Limited native API access vs native apps</td>
-          <td>React + Workbox, Vue PWA plugin</td>
-          <td>Field tools, ride-sharing, delivery apps</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
-    <h3 id="codebase-architectures">Codebase Architectures</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Architecture</th>
-          <th>Description</th>
-          <th>When to Use</th>
-          <th>Pros</th>
-          <th>Cons</th>
-          <th>Framework Compatibility</th>
-          <th>Used In</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Component-Based</td>
-          <td>UI broken into reusable, self-contained components</td>
-          <td>All modern frontends</td>
-          <td>Reusable, composable, testable</td>
-          <td>Component explosion at scale</td>
-          <td>React, Vue, Svelte, Angular</td>
-          <td>Every modern UI</td>
-        </tr>
-        <tr>
-          <td>Feature-Sliced Design (FSD)</td>
-          <td>Code split by feature with strict layer rules</td>
-          <td>Mid to large apps needing scalability</td>
-          <td>Strong boundaries, team-scalable</td>
-          <td>Learning curve, strict conventions</td>
-          <td>React, Vue (any framework)</td>
-          <td>SaaS apps, enterprise dashboards</td>
-        </tr>
-        <tr>
-          <td>Atomic Design</td>
-          <td>
-            Components organized as atoms → molecules → organisms → templates →
-            pages
-          </td>
-          <td>Design-system-first apps</td>
-          <td>UI consistency, reusable primitives</td>
-          <td>Overhead for simple apps</td>
-          <td>React + Storybook, Vue + Storybook</td>
-          <td>Design systems, UI libraries</td>
-        </tr>
-        <tr>
-          <td>MVC on Frontend</td>
-          <td>Model manages data, View renders UI, Controller handles input</td>
-          <td>Angular-style apps</td>
-          <td>Familiar structure for backend devs</td>
-          <td>Verbose, less idiomatic in React/Vue</td>
-          <td>Angular, Backbone.js</td>
-          <td>Legacy SPAs, Angular enterprise apps</td>
-        </tr>
-        <tr>
-          <td>Flux / Unidirectional Data Flow</td>
-          <td>
-            State flows in one direction: Action → Dispatcher → Store → View
-          </td>
-          <td>Complex shared state apps</td>
-          <td>Predictable state, easy debugging</td>
-          <td>Boilerplate heavy</td>
-          <td>Redux (React), Vuex, NgRx</td>
-          <td>Large SPAs, real-time dashboards</td>
-        </tr>
-        <tr>
-          <td>MVVM (Model-View-ViewModel)</td>
-          <td>ViewModel binds data reactively to the View</td>
-          <td>Reactive, data-bound UIs</td>
-          <td>Clean separation of UI logic</td>
-          <td>Two-way binding can obscure flow</td>
-          <td>Vue (natural fit), Angular, Knockout.js</td>
-          <td>Form-heavy apps, enterprise UIs</td>
-        </tr>
-        <tr>
-          <td>Layered (Presentation + Domain + Data)</td>
-          <td>UI layer sits over domain logic and a data access layer</td>
-          <td>Domain-heavy frontends</td>
-          <td>Mirrors backend clean architecture</td>
-          <td>More files and abstraction</td>
-          <td>React, Vue (manual setup)</td>
-          <td>Complex SPAs, fintech dashboards</td>
-        </tr>
-        <tr>
-          <td>Micro Frontend Architecture</td>
-          <td>Independent mini-apps composed into one shell</td>
-          <td>Large orgs, separate team ownership</td>
-          <td>Independent deploy and tech stack</td>
-          <td>Shared state and style coordination is hard</td>
-          <td>Module Federation, single-spa</td>
-          <td>Enterprise portals, multi-product platforms</td>
-        </tr>
-        <tr>
-          <td>Monorepo-Based</td>
-          <td>Multiple apps/packages in one repo with shared libs</td>
-          <td>Shared design systems or multi-app orgs</td>
-          <td>Code sharing, unified tooling</td>
-          <td>Tooling complexity, slower CI</td>
-          <td>Nx, Turborepo, pnpm workspaces</td>
-          <td>Multi-product SaaS, design systems</td>
-        </tr>
-        <tr>
-          <td>Server Components (RSC)</td>
-          <td>Components rendered server-side, zero JS sent to client</td>
-          <td>Data-heavy components needing no interactivity</td>
-          <td>Smaller bundles, server data access</td>
-          <td>Mental model shift, limited interactivity</td>
-          <td>Next.js (App Router), React 19+</td>
-          <td>Dashboards, data-fetching-heavy pages</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
-    <h3 id="codebase-architectures-with-real-folder-structures">
-      Codebase Architectures with Real Folder Structures
-    </h3>
-    <h4 id="1-component-based-architecture">1. Component-Based Architecture</h4>
-    <pre><code>/src
+      <hr />
+      <h2 id="frontend-architectural-patterns">
+        Frontend Architectural Patterns
+      </h2>
+      <h3 id="system-architectures">System Architectures</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture</th>
+            <th>Description</th>
+            <th>When to Use</th>
+            <th>Pros</th>
+            <th>Cons</th>
+            <th>Frameworks / Tools</th>
+            <th>Use Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SPA (Single Page App)</td>
+            <td>Full app loaded once, routes handled client-side</td>
+            <td>Rich interactive apps</td>
+            <td>Fast navigation, smooth UX</td>
+            <td>Poor SEO, heavy initial load</td>
+            <td>React, Vue, Angular, Svelte</td>
+            <td>Dashboards, admin panels, social feeds</td>
+          </tr>
+          <tr>
+            <td>MPA (Multi Page App)</td>
+            <td>Server renders a new HTML page per route</td>
+            <td>Content-heavy, SEO-critical sites</td>
+            <td>Great SEO, simpler mental model</td>
+            <td>Full page reload on each navigation</td>
+            <td>Next.js (pages), Nuxt, Astro</td>
+            <td>Blogs, marketing sites, news portals</td>
+          </tr>
+          <tr>
+            <td>SSR (Server-Side Rendering)</td>
+            <td>HTML rendered on server per request</td>
+            <td>Dynamic, SEO-sensitive apps</td>
+            <td>Fast first paint, SEO-friendly</td>
+            <td>Higher server load, more infra</td>
+            <td>Next.js, Nuxt, SvelteKit, Remix</td>
+            <td>E-commerce, news, product pages</td>
+          </tr>
+          <tr>
+            <td>SSG (Static Site Generation)</td>
+            <td>HTML pre-built at build time</td>
+            <td>Static or infrequently updated content</td>
+            <td>Blazing fast, CDN-cacheable</td>
+            <td>Not suited for highly dynamic data</td>
+            <td>Next.js, Astro, Gatsby, Eleventy</td>
+            <td>Docs, landing pages, portfolios</td>
+          </tr>
+          <tr>
+            <td>ISR (Incremental Static Regeneration)</td>
+            <td>SSG with background page regeneration</td>
+            <td>Mostly static with periodic updates</td>
+            <td>Combines SSG speed with fresh data</td>
+            <td>Complexity in cache invalidation</td>
+            <td>Next.js, Nuxt</td>
+            <td>Product listings, news with TTL</td>
+          </tr>
+          <tr>
+            <td>JAMstack</td>
+            <td>Static frontend + decoupled APIs + CDN delivery</td>
+            <td>Scalable, low-maintenance sites</td>
+            <td>Fast, secure, low hosting cost</td>
+            <td>Dynamic features need API workarounds</td>
+            <td>Gatsby, Astro, Eleventy + Netlify/Vercel</td>
+            <td>Marketing sites, documentation</td>
+          </tr>
+          <tr>
+            <td>Micro Frontends</td>
+            <td>Frontend split into independently deployable UI apps</td>
+            <td>Large teams, independent deployments</td>
+            <td>Team autonomy, independent deploys</td>
+            <td>Integration complexity, style inconsistency</td>
+            <td>Module Federation (Webpack), single-spa, Nx</td>
+            <td>Enterprise portals, large e-commerce</td>
+          </tr>
+          <tr>
+            <td>Islands Architecture</td>
+            <td>Static HTML with isolated interactive islands</td>
+            <td>Mostly static content with selective interactivity</td>
+            <td>Minimal JS shipped to client</td>
+            <td>Less suitable for highly interactive UIs</td>
+            <td>Astro, Marko, Fresh (Deno)</td>
+            <td>Blogs with interactive widgets, docs</td>
+          </tr>
+          <tr>
+            <td>Edge Rendering</td>
+            <td>HTML rendered at CDN edge nodes near the user</td>
+            <td>Low-latency, global audiences</td>
+            <td>Ultra-fast TTFB, geo-aware logic</td>
+            <td>Limited compute at edge, cold starts</td>
+            <td>Next.js (Edge Runtime), Remix, Cloudflare Workers</td>
+            <td>Personalized landing pages, A/B testing</td>
+          </tr>
+          <tr>
+            <td>PWA (Progressive Web App)</td>
+            <td>Web app with offline support and native-like features</td>
+            <td>Mobile-first, offline-capable apps</td>
+            <td>Works offline, installable</td>
+            <td>Limited native API access vs native apps</td>
+            <td>React + Workbox, Vue PWA plugin</td>
+            <td>Field tools, ride-sharing, delivery apps</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3 id="codebase-architectures">Codebase Architectures</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture</th>
+            <th>Description</th>
+            <th>When to Use</th>
+            <th>Pros</th>
+            <th>Cons</th>
+            <th>Framework Compatibility</th>
+            <th>Used In</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Component-Based</td>
+            <td>UI broken into reusable, self-contained components</td>
+            <td>All modern frontends</td>
+            <td>Reusable, composable, testable</td>
+            <td>Component explosion at scale</td>
+            <td>React, Vue, Svelte, Angular</td>
+            <td>Every modern UI</td>
+          </tr>
+          <tr>
+            <td>Feature-Sliced Design (FSD)</td>
+            <td>Code split by feature with strict layer rules</td>
+            <td>Mid to large apps needing scalability</td>
+            <td>Strong boundaries, team-scalable</td>
+            <td>Learning curve, strict conventions</td>
+            <td>React, Vue (any framework)</td>
+            <td>SaaS apps, enterprise dashboards</td>
+          </tr>
+          <tr>
+            <td>Atomic Design</td>
+            <td>
+              Components organized as atoms → molecules → organisms → templates
+              → pages
+            </td>
+            <td>Design-system-first apps</td>
+            <td>UI consistency, reusable primitives</td>
+            <td>Overhead for simple apps</td>
+            <td>React + Storybook, Vue + Storybook</td>
+            <td>Design systems, UI libraries</td>
+          </tr>
+          <tr>
+            <td>MVC on Frontend</td>
+            <td>
+              Model manages data, View renders UI, Controller handles input
+            </td>
+            <td>Angular-style apps</td>
+            <td>Familiar structure for backend devs</td>
+            <td>Verbose, less idiomatic in React/Vue</td>
+            <td>Angular, Backbone.js</td>
+            <td>Legacy SPAs, Angular enterprise apps</td>
+          </tr>
+          <tr>
+            <td>Flux / Unidirectional Data Flow</td>
+            <td>
+              State flows in one direction: Action → Dispatcher → Store → View
+            </td>
+            <td>Complex shared state apps</td>
+            <td>Predictable state, easy debugging</td>
+            <td>Boilerplate heavy</td>
+            <td>Redux (React), Vuex, NgRx</td>
+            <td>Large SPAs, real-time dashboards</td>
+          </tr>
+          <tr>
+            <td>MVVM (Model-View-ViewModel)</td>
+            <td>ViewModel binds data reactively to the View</td>
+            <td>Reactive, data-bound UIs</td>
+            <td>Clean separation of UI logic</td>
+            <td>Two-way binding can obscure flow</td>
+            <td>Vue (natural fit), Angular, Knockout.js</td>
+            <td>Form-heavy apps, enterprise UIs</td>
+          </tr>
+          <tr>
+            <td>Layered (Presentation + Domain + Data)</td>
+            <td>UI layer sits over domain logic and a data access layer</td>
+            <td>Domain-heavy frontends</td>
+            <td>Mirrors backend clean architecture</td>
+            <td>More files and abstraction</td>
+            <td>React, Vue (manual setup)</td>
+            <td>Complex SPAs, fintech dashboards</td>
+          </tr>
+          <tr>
+            <td>Micro Frontend Architecture</td>
+            <td>Independent mini-apps composed into one shell</td>
+            <td>Large orgs, separate team ownership</td>
+            <td>Independent deploy and tech stack</td>
+            <td>Shared state and style coordination is hard</td>
+            <td>Module Federation, single-spa</td>
+            <td>Enterprise portals, multi-product platforms</td>
+          </tr>
+          <tr>
+            <td>Monorepo-Based</td>
+            <td>Multiple apps/packages in one repo with shared libs</td>
+            <td>Shared design systems or multi-app orgs</td>
+            <td>Code sharing, unified tooling</td>
+            <td>Tooling complexity, slower CI</td>
+            <td>Nx, Turborepo, pnpm workspaces</td>
+            <td>Multi-product SaaS, design systems</td>
+          </tr>
+          <tr>
+            <td>Server Components (RSC)</td>
+            <td>Components rendered server-side, zero JS sent to client</td>
+            <td>Data-heavy components needing no interactivity</td>
+            <td>Smaller bundles, server data access</td>
+            <td>Mental model shift, limited interactivity</td>
+            <td>Next.js (App Router), React 19+</td>
+            <td>Dashboards, data-fetching-heavy pages</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3 id="codebase-architectures-with-real-folder-structures">
+        Codebase Architectures with Real Folder Structures
+      </h3>
+      <h4 id="1-component-based-architecture">
+        1. Component-Based Architecture
+      </h4>
+      <pre><code>/src
 ├── components/
 │   ├── Button/
 │   │   ├── Button<span class="hljs-selector-class">.tsx</span>
@@ -597,9 +603,9 @@
 │   └── useAuth<span class="hljs-selector-class">.ts</span>
 └── main.tsx
 </code></pre>
-    <hr />
-    <h4 id="2-feature-sliced-design-fsd-">2. Feature-Sliced Design (FSD)</h4>
-    <pre><code>/src
+      <hr />
+      <h4 id="2-feature-sliced-design-fsd-">2. Feature-Sliced Design (FSD)</h4>
+      <pre><code>/src
 ├── app/               <span class="hljs-comment"># App-wide setup (providers, router, store)</span>
 ├── pages/             <span class="hljs-comment"># Route-level pages composed from features</span>
 ├── features/          <span class="hljs-comment"># User interactions: auth, cart, search</span>
@@ -614,9 +620,9 @@
 │   └── <span class="hljs-class"><span class="hljs-keyword">lib</span>/</span>
 └── main.tsx
 </code></pre>
-    <hr />
-    <h4 id="3-atomic-design">3. Atomic Design</h4>
-    <pre><code>/src
+      <hr />
+      <h4 id="3-atomic-design">3. Atomic Design</h4>
+      <pre><code>/src
 ├── components/
 │   ├── atoms/
 │   │   ├── <span class="hljs-keyword">Button</span>/
@@ -631,11 +637,11 @@
 │       └── <span class="hljs-keyword">HomePage</span>/
 └── main.tsx
 </code></pre>
-    <hr />
-    <h4 id="4-flux-unidirectional-data-flow-redux-style-">
-      4. Flux / Unidirectional Data Flow (Redux-style)
-    </h4>
-    <pre><code>/src
+      <hr />
+      <h4 id="4-flux-unidirectional-data-flow-redux-style-">
+        4. Flux / Unidirectional Data Flow (Redux-style)
+      </h4>
+      <pre><code>/src
 ├── store/
 │   ├── actions/
 │   │   └── userActions<span class="hljs-selector-class">.ts</span>
@@ -648,9 +654,9 @@
 │   └── Dashboard<span class="hljs-selector-class">.tsx</span>
 └── main.tsx
 </code></pre>
-    <hr />
-    <h4 id="5-mvvm">5. MVVM</h4>
-    <pre><code>/src
+      <hr />
+      <h4 id="5-mvvm">5. MVVM</h4>
+      <pre><code>/src
 ├── models/
 │   └── UserModel.ts        # Raw <span class="hljs-keyword">data</span> <span class="hljs-built_in">shape</span> / API response <span class="hljs-keyword">type</span>
 ├── viewmodels/
@@ -661,11 +667,11 @@
 │   └── userService.ts
 └── main.tsx
 </code></pre>
-    <hr />
-    <h4 id="6-layered-architecture-presentation-domain-data-">
-      6. Layered Architecture (Presentation + Domain + Data)
-    </h4>
-    <pre><code>/src
+      <hr />
+      <h4 id="6-layered-architecture-presentation-domain-data-">
+        6. Layered Architecture (Presentation + Domain + Data)
+      </h4>
+      <pre><code>/src
 ├── presentation/
 │   ├── components/
 │   └── pages/
@@ -677,11 +683,11 @@
 │   └── api/
 └── main.tsx
 </code></pre>
-    <hr />
-    <h4 id="7-micro-frontend-shell-remotes-">
-      7. Micro Frontend (Shell + Remotes)
-    </h4>
-    <pre><code># <span class="hljs-keyword">Shell</span> <span class="hljs-keyword">App</span>
+      <hr />
+      <h4 id="7-micro-frontend-shell-remotes-">
+        7. Micro Frontend (Shell + Remotes)
+      </h4>
+      <pre><code># <span class="hljs-keyword">Shell</span> <span class="hljs-keyword">App</span>
 /<span class="hljs-keyword">shell</span>
 ├── src/
 │   ├── <span class="hljs-keyword">App</span>.tsx
@@ -695,11 +701,11 @@
 │   └── <span class="hljs-keyword">bootstrap</span>.tsx
 └── webpack.config.js   # Module Federation remote
 </code></pre>
-    <hr />
-    <h4 id="8-monorepo-based-nx-turborepo-">
-      8. Monorepo-Based (Nx / Turborepo)
-    </h4>
-    <pre><code>/apps
+      <hr />
+      <h4 id="8-monorepo-based-nx-turborepo-">
+        8. Monorepo-Based (Nx / Turborepo)
+      </h4>
+      <pre><code>/apps
 ├── web/                <span class="hljs-meta"># Main web app</span>
 ├── mobile/             <span class="hljs-meta"># React Native or Expo</span>
 └── admin/              <span class="hljs-meta"># Admin dashboard</span>
@@ -712,11 +718,11 @@
 
 turbo.json / nx.json
 </code></pre>
-    <hr />
-    <h4 id="9-server-components-architecture-next-js-app-router-">
-      9. Server Components Architecture (Next.js App Router)
-    </h4>
-    <pre><code>/app
+      <hr />
+      <h4 id="9-server-components-architecture-next-js-app-router-">
+        9. Server Components Architecture (Next.js App Router)
+      </h4>
+      <pre><code>/app
 ├── layout.tsx              <span class="hljs-comment"># Root server layout</span>
 ├── page.tsx                <span class="hljs-comment"># Server component (no "use client")</span>
 ├── dashboard/
@@ -728,12 +734,13 @@ turbo.json / nx.json
 └── <span class="hljs-class"><span class="hljs-keyword">lib</span>/</span>
     └── db.ts               <span class="hljs-comment"># Direct DB access (server only)</span>
 </code></pre>
-    <hr />
-    <h2 id="architecture-decision-tree">Architecture Decision Tree</h2>
-    <p>
-      Not sure where to start? Answer these five questions and follow the path.
-    </p>
-    <pre><code><span class="hljs-symbol">Q1.</span> Are you <span class="hljs-keyword">building </span>from scratch or working on an existing app?
+      <hr />
+      <h2 id="architecture-decision-tree">Architecture Decision Tree</h2>
+      <p>
+        Not sure where to start? Answer these five questions and follow the
+        path.
+      </p>
+      <pre><code><span class="hljs-symbol">Q1.</span> Are you <span class="hljs-keyword">building </span>from scratch or working on an existing app?
 │
 ├── Existing app → skip to Migration Paths
 │
@@ -759,257 +766,257 @@ turbo.json / nx.json
                                 │
                                 └── NO → Modular Monolith + Component-<span class="hljs-keyword">Based </span>SPA
 </code></pre>
-    <hr />
-    <h2 id="real-world-company-examples">Real-World Company Examples</h2>
-    <p>How companies you know actually use these patterns in production.</p>
-    <h3 id="backend">Backend</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Company</th>
-          <th>Architecture Used</th>
-          <th>Why</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Netflix</td>
-          <td>Microservices + Event-Driven</td>
-          <td>500+ services, independent scaling per feature</td>
-        </tr>
-        <tr>
-          <td>Uber</td>
-          <td>Microservices + CQRS</td>
-          <td>Separate read (trip tracking) from write (booking) paths</td>
-        </tr>
-        <tr>
-          <td>Airbnb</td>
-          <td>Modular Monolith → Microservices</td>
-          <td>Started with a monolith, migrated as scale demanded</td>
-        </tr>
-        <tr>
-          <td>Stripe</td>
-          <td>Layered + Event Sourcing</td>
-          <td>Every payment event is stored and replayable for audits</td>
-        </tr>
-        <tr>
-          <td>GitHub</td>
-          <td>Monolith (Rails) → Modular Monolith</td>
-          <td>Kept the monolith long-term with disciplined modularity</td>
-        </tr>
-        <tr>
-          <td>Discord</td>
-          <td>Event-Driven + Serverless</td>
-          <td>Millions of real-time messages routed via pub/sub</td>
-        </tr>
-        <tr>
-          <td>Shopify</td>
-          <td>Modular Monolith (Rails)</td>
-          <td>One of the most successful monoliths at scale</td>
-        </tr>
-        <tr>
-          <td>LinkedIn</td>
-          <td>CQRS + Event-Driven</td>
-          <td>Feed generation decoupled from user write actions</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="frontend">Frontend</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Company</th>
-          <th>Architecture Used</th>
-          <th>Why</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Spotify</td>
-          <td>Micro Frontends</td>
-          <td>
-            Teams own their feature slice end-to-end (player, search, etc.)
-          </td>
-        </tr>
-        <tr>
-          <td>Amazon</td>
-          <td>Micro Frontends + SSR</td>
-          <td>Each product section is independently deployed</td>
-        </tr>
-        <tr>
-          <td>Twitter / X</td>
-          <td>SPA → SSR (Next.js)</td>
-          <td>Migrated to SSR for faster initial loads and SEO</td>
-        </tr>
-        <tr>
-          <td>Airbnb</td>
-          <td>SSR + Atomic Design</td>
-          <td>Consistent design system across web and native</td>
-        </tr>
-        <tr>
-          <td>Notion</td>
-          <td>SPA + Component-Based</td>
-          <td>Rich collaborative editor demands full client control</td>
-        </tr>
-        <tr>
-          <td>Vercel</td>
-          <td>SSG + ISR</td>
-          <td>Mostly static docs with periodic content regeneration</td>
-        </tr>
-        <tr>
-          <td>IKEA</td>
-          <td>JAMstack + Headless CMS</td>
-          <td>Content managed separately, storefront deployed to CDN</td>
-        </tr>
-        <tr>
-          <td>The Guardian</td>
-          <td>SSR + Islands Architecture</td>
-          <td>Fast news pages with small interactive components</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
-    <h2 id="anti-patterns-what-not-to-do">Anti-Patterns — What Not to Do</h2>
-    <p>
-      The most common mistakes developers make with each architecture. Knowing
-      these upfront saves months of pain.
-    </p>
-    <h3 id="backend">Backend</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Architecture</th>
-          <th>Common Mistake</th>
-          <th>What Happens</th>
-          <th>Do This Instead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Monolith</td>
-          <td>Never modularizing as the app grows</td>
-          <td>Everything becomes a tangled ball of logic</td>
-          <td>
-            Apply module boundaries early — treat it like a Modular Monolith
-          </td>
-        </tr>
-        <tr>
-          <td>Microservices</td>
-          <td>Starting with microservices on day one</td>
-          <td>Premature complexity before you know your domain boundaries</td>
-          <td>
-            Start with a monolith, extract services only when the pain is real
-          </td>
-        </tr>
-        <tr>
-          <td>Serverless</td>
-          <td>Putting stateful logic in functions</td>
-          <td>Inconsistent state, race conditions</td>
-          <td>Use serverless only for stateless, short-lived tasks</td>
-        </tr>
-        <tr>
-          <td>Event-Driven</td>
-          <td>No dead letter queue or retry logic</td>
-          <td>Silent failures — events vanish, no one notices</td>
-          <td>Always add error queues and event logging from day one</td>
-        </tr>
-        <tr>
-          <td>CQRS</td>
-          <td>Applying it everywhere</td>
-          <td>Over-engineered CRUD with pointless complexity</td>
-          <td>
-            Use CQRS only when read and write loads are genuinely different
-          </td>
-        </tr>
-        <tr>
-          <td>DDD</td>
-          <td>Letting the domain model leak into the HTTP layer</td>
-          <td>Tight coupling, messy controllers</td>
-          <td>Strictly keep domain logic inside domain boundaries</td>
-        </tr>
-        <tr>
-          <td>Clean Architecture</td>
-          <td>Creating layers without enforcing dependency rules</td>
-          <td>Just a renamed Layered Architecture with no real benefit</td>
-          <td>
-            Use interfaces and enforce the rule: outer layers depend on inner,
-            never the reverse
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="frontend">Frontend</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Architecture</th>
-          <th>Common Mistake</th>
-          <th>What Happens</th>
-          <th>Do This Instead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>SPA</td>
-          <td>Putting everything in a global store</td>
-          <td>State becomes a shared nightmare everyone touches</td>
-          <td>Co-locate state near the component that owns it</td>
-        </tr>
-        <tr>
-          <td>SSR</td>
-          <td>Fetching data client-side on an SSR page</td>
-          <td>Defeats the whole purpose — users still see spinners</td>
-          <td>
-            Move data fetching to the server (getServerSideProps, loaders)
-          </td>
-        </tr>
-        <tr>
-          <td>Micro Frontends</td>
-          <td>Sharing too much state between apps</td>
-          <td>Tight coupling defeats the point of independent deployments</td>
-          <td>Use events or a shared contract (URL params, custom events)</td>
-        </tr>
-        <tr>
-          <td>Atomic Design</td>
-          <td>Treating every tiny thing as an atom</td>
-          <td>200 atoms in Storybook that no one can find or reuse</td>
-          <td>
-            Only extract atoms when they are genuinely reused across three or
-            more places
-          </td>
-        </tr>
-        <tr>
-          <td>Flux / Redux</td>
-          <td>Using Redux for every piece of UI state</td>
-          <td>Massive boilerplate for toggling a dropdown</td>
-          <td>
-            Use local state for UI, Redux only for shared cross-feature state
-          </td>
-        </tr>
-        <tr>
-          <td>Component-Based</td>
-          <td>Deeply nested prop drilling</td>
-          <td>Components become brittle and impossible to refactor</td>
-          <td>Use Context API, Zustand, or composition to break the chain</td>
-        </tr>
-        <tr>
-          <td>Feature-Sliced Design</td>
-          <td>Importing directly across feature slices</td>
-          <td>Circular dependencies, tight cross-feature coupling</td>
-          <td>
-            Features should only communicate through shared entities or events
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <hr />
-    <h2 id="migration-paths">Migration Paths</h2>
-    <p>
-      Already have an app and need to evolve it? These are the most proven
-      step-by-step paths.
-    </p>
-    <h3 id="monolith-modular-monolith">Monolith → Modular Monolith</h3>
-    <pre><code><span class="hljs-keyword">Step</span> <span class="hljs-number">1</span>: Identify natural domain boundaries (users, billing, products)
+      <hr />
+      <h2 id="real-world-company-examples">Real-World Company Examples</h2>
+      <p>How companies you know actually use these patterns in production.</p>
+      <h3 id="backend">Backend</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Architecture Used</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Netflix</td>
+            <td>Microservices + Event-Driven</td>
+            <td>500+ services, independent scaling per feature</td>
+          </tr>
+          <tr>
+            <td>Uber</td>
+            <td>Microservices + CQRS</td>
+            <td>Separate read (trip tracking) from write (booking) paths</td>
+          </tr>
+          <tr>
+            <td>Airbnb</td>
+            <td>Modular Monolith → Microservices</td>
+            <td>Started with a monolith, migrated as scale demanded</td>
+          </tr>
+          <tr>
+            <td>Stripe</td>
+            <td>Layered + Event Sourcing</td>
+            <td>Every payment event is stored and replayable for audits</td>
+          </tr>
+          <tr>
+            <td>GitHub</td>
+            <td>Monolith (Rails) → Modular Monolith</td>
+            <td>Kept the monolith long-term with disciplined modularity</td>
+          </tr>
+          <tr>
+            <td>Discord</td>
+            <td>Event-Driven + Serverless</td>
+            <td>Millions of real-time messages routed via pub/sub</td>
+          </tr>
+          <tr>
+            <td>Shopify</td>
+            <td>Modular Monolith (Rails)</td>
+            <td>One of the most successful monoliths at scale</td>
+          </tr>
+          <tr>
+            <td>LinkedIn</td>
+            <td>CQRS + Event-Driven</td>
+            <td>Feed generation decoupled from user write actions</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 id="frontend">Frontend</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Architecture Used</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Spotify</td>
+            <td>Micro Frontends</td>
+            <td>
+              Teams own their feature slice end-to-end (player, search, etc.)
+            </td>
+          </tr>
+          <tr>
+            <td>Amazon</td>
+            <td>Micro Frontends + SSR</td>
+            <td>Each product section is independently deployed</td>
+          </tr>
+          <tr>
+            <td>Twitter / X</td>
+            <td>SPA → SSR (Next.js)</td>
+            <td>Migrated to SSR for faster initial loads and SEO</td>
+          </tr>
+          <tr>
+            <td>Airbnb</td>
+            <td>SSR + Atomic Design</td>
+            <td>Consistent design system across web and native</td>
+          </tr>
+          <tr>
+            <td>Notion</td>
+            <td>SPA + Component-Based</td>
+            <td>Rich collaborative editor demands full client control</td>
+          </tr>
+          <tr>
+            <td>Vercel</td>
+            <td>SSG + ISR</td>
+            <td>Mostly static docs with periodic content regeneration</td>
+          </tr>
+          <tr>
+            <td>IKEA</td>
+            <td>JAMstack + Headless CMS</td>
+            <td>Content managed separately, storefront deployed to CDN</td>
+          </tr>
+          <tr>
+            <td>The Guardian</td>
+            <td>SSR + Islands Architecture</td>
+            <td>Fast news pages with small interactive components</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2 id="anti-patterns-what-not-to-do">Anti-Patterns — What Not to Do</h2>
+      <p>
+        The most common mistakes developers make with each architecture. Knowing
+        these upfront saves months of pain.
+      </p>
+      <h3 id="backend">Backend</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture</th>
+            <th>Common Mistake</th>
+            <th>What Happens</th>
+            <th>Do This Instead</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monolith</td>
+            <td>Never modularizing as the app grows</td>
+            <td>Everything becomes a tangled ball of logic</td>
+            <td>
+              Apply module boundaries early — treat it like a Modular Monolith
+            </td>
+          </tr>
+          <tr>
+            <td>Microservices</td>
+            <td>Starting with microservices on day one</td>
+            <td>Premature complexity before you know your domain boundaries</td>
+            <td>
+              Start with a monolith, extract services only when the pain is real
+            </td>
+          </tr>
+          <tr>
+            <td>Serverless</td>
+            <td>Putting stateful logic in functions</td>
+            <td>Inconsistent state, race conditions</td>
+            <td>Use serverless only for stateless, short-lived tasks</td>
+          </tr>
+          <tr>
+            <td>Event-Driven</td>
+            <td>No dead letter queue or retry logic</td>
+            <td>Silent failures — events vanish, no one notices</td>
+            <td>Always add error queues and event logging from day one</td>
+          </tr>
+          <tr>
+            <td>CQRS</td>
+            <td>Applying it everywhere</td>
+            <td>Over-engineered CRUD with pointless complexity</td>
+            <td>
+              Use CQRS only when read and write loads are genuinely different
+            </td>
+          </tr>
+          <tr>
+            <td>DDD</td>
+            <td>Letting the domain model leak into the HTTP layer</td>
+            <td>Tight coupling, messy controllers</td>
+            <td>Strictly keep domain logic inside domain boundaries</td>
+          </tr>
+          <tr>
+            <td>Clean Architecture</td>
+            <td>Creating layers without enforcing dependency rules</td>
+            <td>Just a renamed Layered Architecture with no real benefit</td>
+            <td>
+              Use interfaces and enforce the rule: outer layers depend on inner,
+              never the reverse
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 id="frontend">Frontend</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Architecture</th>
+            <th>Common Mistake</th>
+            <th>What Happens</th>
+            <th>Do This Instead</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SPA</td>
+            <td>Putting everything in a global store</td>
+            <td>State becomes a shared nightmare everyone touches</td>
+            <td>Co-locate state near the component that owns it</td>
+          </tr>
+          <tr>
+            <td>SSR</td>
+            <td>Fetching data client-side on an SSR page</td>
+            <td>Defeats the whole purpose — users still see spinners</td>
+            <td>
+              Move data fetching to the server (getServerSideProps, loaders)
+            </td>
+          </tr>
+          <tr>
+            <td>Micro Frontends</td>
+            <td>Sharing too much state between apps</td>
+            <td>Tight coupling defeats the point of independent deployments</td>
+            <td>Use events or a shared contract (URL params, custom events)</td>
+          </tr>
+          <tr>
+            <td>Atomic Design</td>
+            <td>Treating every tiny thing as an atom</td>
+            <td>200 atoms in Storybook that no one can find or reuse</td>
+            <td>
+              Only extract atoms when they are genuinely reused across three or
+              more places
+            </td>
+          </tr>
+          <tr>
+            <td>Flux / Redux</td>
+            <td>Using Redux for every piece of UI state</td>
+            <td>Massive boilerplate for toggling a dropdown</td>
+            <td>
+              Use local state for UI, Redux only for shared cross-feature state
+            </td>
+          </tr>
+          <tr>
+            <td>Component-Based</td>
+            <td>Deeply nested prop drilling</td>
+            <td>Components become brittle and impossible to refactor</td>
+            <td>Use Context API, Zustand, or composition to break the chain</td>
+          </tr>
+          <tr>
+            <td>Feature-Sliced Design</td>
+            <td>Importing directly across feature slices</td>
+            <td>Circular dependencies, tight cross-feature coupling</td>
+            <td>
+              Features should only communicate through shared entities or events
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2 id="migration-paths">Migration Paths</h2>
+      <p>
+        Already have an app and need to evolve it? These are the most proven
+        step-by-step paths.
+      </p>
+      <h3 id="monolith-modular-monolith">Monolith → Modular Monolith</h3>
+      <pre><code><span class="hljs-keyword">Step</span> <span class="hljs-number">1</span>: Identify natural domain boundaries (users, billing, products)
 <span class="hljs-keyword">Step</span> <span class="hljs-number">2</span>: Move files <span class="hljs-keyword">into</span> domain folders — /users, /billing, /products
 <span class="hljs-keyword">Step</span> <span class="hljs-number">3</span>: Ban cross-domain direct <span class="hljs-keyword">imports</span> — enforce via ESLint rules <span class="hljs-keyword">or</span> <span class="hljs-keyword">module</span> boundaries
 <span class="hljs-keyword">Step</span> <span class="hljs-number">4</span>: <span class="hljs-keyword">Each</span> domain gets its own service layer <span class="hljs-keyword">and</span> repository
@@ -1018,10 +1025,10 @@ turbo.json / nx.json
 Timeline: <span class="hljs-number">2</span>–<span class="hljs-number">8</span> weeks <span class="hljs-keyword">for</span> a <span class="hljs-keyword">mid</span>-size codebase
 Risk: Low
 </code></pre>
-    <h3 id="modular-monolith-microservices">
-      Modular Monolith → Microservices
-    </h3>
-    <pre><code>Step <span class="hljs-number">1</span>: Identify <span class="hljs-keyword">the</span> highest-pain domain (most traffic <span class="hljs-keyword">or</span> most team conflict)
+      <h3 id="modular-monolith-microservices">
+        Modular Monolith → Microservices
+      </h3>
+      <pre><code>Step <span class="hljs-number">1</span>: Identify <span class="hljs-keyword">the</span> highest-pain domain (most traffic <span class="hljs-keyword">or</span> most team conflict)
 Step <span class="hljs-number">2</span>: Extract its database tables <span class="hljs-built_in">to</span> <span class="hljs-keyword">a</span> separate schema
 Step <span class="hljs-number">3</span>: Replace <span class="hljs-keyword">in</span>-<span class="hljs-built_in">process</span> calls <span class="hljs-keyword">with</span> HTTP <span class="hljs-keyword">or</span> message queue calls
 Step <span class="hljs-number">4</span>: Deploy <span class="hljs-keyword">the</span> extracted service independently
@@ -1030,8 +1037,8 @@ Step <span class="hljs-number">5</span>: Repeat domain <span class="hljs-keyword
 Timeline: <span class="hljs-number">3</span>–<span class="hljs-number">12</span> months per service extraction
 Risk: Medium — <span class="hljs-built_in">do</span> <span class="hljs-keyword">it</span> <span class="hljs-literal">one</span> service <span class="hljs-keyword">at</span> <span class="hljs-keyword">a</span> <span class="hljs-built_in">time</span>
 </code></pre>
-    <h3 id="spa-ssr">SPA → SSR</h3>
-    <pre><code><span class="hljs-keyword">Step</span> <span class="hljs-number">1</span>: Migrate <span class="hljs-keyword">to</span> Next.js (pages router first — easier migration path)
+      <h3 id="spa-ssr">SPA → SSR</h3>
+      <pre><code><span class="hljs-keyword">Step</span> <span class="hljs-number">1</span>: Migrate <span class="hljs-keyword">to</span> Next.js (pages router first — easier migration path)
 <span class="hljs-keyword">Step</span> <span class="hljs-number">2</span>: Move data fetching <span class="hljs-keyword">into</span> getServerSideProps <span class="hljs-keyword">or</span> getStaticProps
 <span class="hljs-keyword">Step</span> <span class="hljs-number">3</span>: Audit which pages need SSR (SEO/<span class="hljs-keyword">dynamic</span>) vs SSG (<span class="hljs-keyword">static</span>)
 <span class="hljs-keyword">Step</span> <span class="hljs-number">4</span>: Move client-only components behind <span class="hljs-keyword">dynamic</span> imports
@@ -1040,10 +1047,10 @@ Risk: Medium — <span class="hljs-built_in">do</span> <span class="hljs-keyword
 Timeline: <span class="hljs-number">2</span>–<span class="hljs-number">6</span> weeks depending <span class="hljs-keyword">on</span> app size
 Risk: Medium — hydration bugs are subtle
 </code></pre>
-    <h3 id="component-based-feature-sliced-design">
-      Component-Based → Feature-Sliced Design
-    </h3>
-    <pre><code>Step 1: <span class="hljs-keyword">Create</span> the /features, /entities, /<span class="hljs-keyword">shared</span> top-<span class="hljs-keyword">level</span> folders
+      <h3 id="component-based-feature-sliced-design">
+        Component-Based → Feature-Sliced Design
+      </h3>
+      <pre><code>Step 1: <span class="hljs-keyword">Create</span> the /features, /entities, /<span class="hljs-keyword">shared</span> top-<span class="hljs-keyword">level</span> folders
 Step <span class="hljs-number">2</span>: <span class="hljs-keyword">Move</span> <span class="hljs-keyword">shared</span> UI components <span class="hljs-keyword">into</span> /<span class="hljs-keyword">shared</span>/ui
 Step <span class="hljs-number">3</span>: <span class="hljs-keyword">Group</span> <span class="hljs-keyword">by</span> feature — <span class="hljs-keyword">move</span> auth components, hooks, <span class="hljs-keyword">and</span> API calls <span class="hljs-keyword">into</span> /features/auth
 Step <span class="hljs-number">4</span>: Enforce <span class="hljs-keyword">import</span> <span class="hljs-keyword">rules</span> — features cannot <span class="hljs-keyword">import</span> <span class="hljs-keyword">from</span> other features
@@ -1052,140 +1059,140 @@ Step <span class="hljs-number">5</span>: Gradually migrate remaining components
 Timeline: <span class="hljs-number">1</span>–<span class="hljs-number">4</span> weeks
 Risk: <span class="hljs-keyword">Low</span> — incremental <span class="hljs-keyword">by</span> nature
 </code></pre>
-    <hr />
-    <h2 id="team-size-guide">Team Size Guide</h2>
-    <p>
-      The right architecture isn&#39;t just about the app. It&#39;s about the
-      people building it.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Team Size</th>
-          <th>Backend Sweet Spot</th>
-          <th>Frontend Sweet Spot</th>
-          <th>Avoid</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Solo Developer</td>
-          <td>Monolith + MVC or Layered</td>
-          <td>SPA + Component-Based</td>
-          <td>Microservices, Micro Frontends</td>
-        </tr>
-        <tr>
-          <td>2–5 Developers</td>
-          <td>Modular Monolith + Layered</td>
-          <td>SPA + FSD or Atomic Design</td>
-          <td>Full CQRS, Event Sourcing</td>
-        </tr>
-        <tr>
-          <td>5–15 Developers</td>
-          <td>Modular Monolith or light Microservices</td>
-          <td>FSD + Monorepo</td>
-          <td>Micro Frontends (too early)</td>
-        </tr>
-        <tr>
-          <td>15–50 Developers</td>
-          <td>Microservices + DDD</td>
-          <td>Micro Frontends + Monorepo</td>
-          <td>Pure Monolith (will eventually collapse)</td>
-        </tr>
-        <tr>
-          <td>50+ Developers</td>
-          <td>Microservices + Event-Driven + CQRS</td>
-          <td>Micro Frontends + Design System</td>
-          <td>Shared global state, tightly coupled deploys</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="rules-to-keep-in-mind">Rules to keep in mind</h3>
-    <p>
-      <strong>Don&#39;t over-architect early.</strong> A solo developer building
-      microservices is burning time on infrastructure instead of the product
-      itself.
-    </p>
-    <p>
-      <strong>Feel the pain first.</strong> If the monolith isn&#39;t slowing
-      you down yet, it&#39;s not time to break it apart. Migrate when the
-      problem is real, not imagined.
-    </p>
-    <p>
-      <strong>Conway&#39;s Law is real.</strong> Your architecture will
-      naturally mirror your team structure. Think about how you organise people
-      and how you organise code at the same time.
-    </p>
-    <p>
-      <strong>One service per team, not per feature.</strong> Microservices and
-      Micro Frontends work best when an entire team owns an entire slice end to
-      end — not when every small feature has its own service.
-    </p>
-    <hr />
-    <h2 id="choosing-the-right-architecture">
-      Choosing the Right Architecture
-    </h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Concern</th>
-          <th>Recommended Backend</th>
-          <th>Recommended Frontend</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>MVP / Prototype</td>
-          <td>Monolith + MVC</td>
-          <td>SPA + Component-Based</td>
-        </tr>
-        <tr>
-          <td>SEO-Critical Site</td>
-          <td>JAMstack / SSR Backend</td>
-          <td>SSG / SSR (Next.js, Nuxt)</td>
-        </tr>
-        <tr>
-          <td>Large Team / Enterprise</td>
-          <td>Microservices + DDD</td>
-          <td>Micro Frontends / FSD</td>
-        </tr>
-        <tr>
-          <td>Real-Time Features</td>
-          <td>Event-Driven + CQRS</td>
-          <td>SPA + Flux / Unidirectional State</td>
-        </tr>
-        <tr>
-          <td>Content-Heavy Platform</td>
-          <td>Headless CMS</td>
-          <td>JAMstack + Islands Architecture</td>
-        </tr>
-        <tr>
-          <td>Design System Focus</td>
-          <td>Modular Monolith</td>
-          <td>Atomic Design + Monorepo</td>
-        </tr>
-        <tr>
-          <td>Audit / Financial Data</td>
-          <td>CQRS + Event Sourcing</td>
-          <td>Layered Frontend + Server Components</td>
-        </tr>
-        <tr>
-          <td>High-Performance Global App</td>
-          <td>Serverless + BFF</td>
-          <td>Edge Rendering + SSG + ISR</td>
-        </tr>
-        <tr>
-          <td>Offline / Mobile-First</td>
-          <td>REST/GraphQL Backend</td>
-          <td>PWA + Component-Based</td>
-        </tr>
-        <tr>
-          <td>Testable / Maintainable Core</td>
-          <td>Clean / Hexagonal Architecture</td>
-          <td>Layered + MVVM / FSD</td>
-        </tr>
-      </tbody>
-    </table>
+      <hr />
+      <h2 id="team-size-guide">Team Size Guide</h2>
+      <p>
+        The right architecture isn&#39;t just about the app. It&#39;s about the
+        people building it.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Team Size</th>
+            <th>Backend Sweet Spot</th>
+            <th>Frontend Sweet Spot</th>
+            <th>Avoid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Solo Developer</td>
+            <td>Monolith + MVC or Layered</td>
+            <td>SPA + Component-Based</td>
+            <td>Microservices, Micro Frontends</td>
+          </tr>
+          <tr>
+            <td>2–5 Developers</td>
+            <td>Modular Monolith + Layered</td>
+            <td>SPA + FSD or Atomic Design</td>
+            <td>Full CQRS, Event Sourcing</td>
+          </tr>
+          <tr>
+            <td>5–15 Developers</td>
+            <td>Modular Monolith or light Microservices</td>
+            <td>FSD + Monorepo</td>
+            <td>Micro Frontends (too early)</td>
+          </tr>
+          <tr>
+            <td>15–50 Developers</td>
+            <td>Microservices + DDD</td>
+            <td>Micro Frontends + Monorepo</td>
+            <td>Pure Monolith (will eventually collapse)</td>
+          </tr>
+          <tr>
+            <td>50+ Developers</td>
+            <td>Microservices + Event-Driven + CQRS</td>
+            <td>Micro Frontends + Design System</td>
+            <td>Shared global state, tightly coupled deploys</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 id="rules-to-keep-in-mind">Rules to keep in mind</h3>
+      <p>
+        <strong>Don&#39;t over-architect early.</strong> A solo developer
+        building microservices is burning time on infrastructure instead of the
+        product itself.
+      </p>
+      <p>
+        <strong>Feel the pain first.</strong> If the monolith isn&#39;t slowing
+        you down yet, it&#39;s not time to break it apart. Migrate when the
+        problem is real, not imagined.
+      </p>
+      <p>
+        <strong>Conway&#39;s Law is real.</strong> Your architecture will
+        naturally mirror your team structure. Think about how you organise
+        people and how you organise code at the same time.
+      </p>
+      <p>
+        <strong>One service per team, not per feature.</strong> Microservices
+        and Micro Frontends work best when an entire team owns an entire slice
+        end to end — not when every small feature has its own service.
+      </p>
+      <hr />
+      <h2 id="choosing-the-right-architecture">
+        Choosing the Right Architecture
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Concern</th>
+            <th>Recommended Backend</th>
+            <th>Recommended Frontend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MVP / Prototype</td>
+            <td>Monolith + MVC</td>
+            <td>SPA + Component-Based</td>
+          </tr>
+          <tr>
+            <td>SEO-Critical Site</td>
+            <td>JAMstack / SSR Backend</td>
+            <td>SSG / SSR (Next.js, Nuxt)</td>
+          </tr>
+          <tr>
+            <td>Large Team / Enterprise</td>
+            <td>Microservices + DDD</td>
+            <td>Micro Frontends / FSD</td>
+          </tr>
+          <tr>
+            <td>Real-Time Features</td>
+            <td>Event-Driven + CQRS</td>
+            <td>SPA + Flux / Unidirectional State</td>
+          </tr>
+          <tr>
+            <td>Content-Heavy Platform</td>
+            <td>Headless CMS</td>
+            <td>JAMstack + Islands Architecture</td>
+          </tr>
+          <tr>
+            <td>Design System Focus</td>
+            <td>Modular Monolith</td>
+            <td>Atomic Design + Monorepo</td>
+          </tr>
+          <tr>
+            <td>Audit / Financial Data</td>
+            <td>CQRS + Event Sourcing</td>
+            <td>Layered Frontend + Server Components</td>
+          </tr>
+          <tr>
+            <td>High-Performance Global App</td>
+            <td>Serverless + BFF</td>
+            <td>Edge Rendering + SSG + ISR</td>
+          </tr>
+          <tr>
+            <td>Offline / Mobile-First</td>
+            <td>REST/GraphQL Backend</td>
+            <td>PWA + Component-Based</td>
+          </tr>
+          <tr>
+            <td>Testable / Maintainable Core</td>
+            <td>Clean / Hexagonal Architecture</td>
+            <td>Layered + MVVM / FSD</td>
+          </tr>
+        </tbody>
+      </table>
     </main>
   </body>
 </html>
